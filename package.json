@@ -4,7 +4,13 @@
   "description": "Lightweight, declarative client sided router for Riot.js.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint ./src/**/**.js",
+    "pretty": "npx prettier-eslint --write ./src/**/**.js",
+    "test": "npx jest --coverage",
+    "bundle:prod": "npx parcel build src/router.ts --global Router --target browser -o ./dist/router.prod.js",
+    "bundle:dev": "npx parcel build src/router.ts --global Router --target browser -o ./dist/router.dev.js --no-minify",
+    "bundle": "npm run bundle:prod && npm run bundle:dev",
+    "build": "npm run lint && npm run bundle && npm test"
   },
   "repository": {
     "type": "git",
@@ -26,6 +32,8 @@
   },
   "homepage": "https://github.com/neetjn/riot-routing#readme",
   "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "@testing-library/jest-dom": "^4.1.0",
     "core-routing": "0.0.1",
     "jest": "^24.9.0",
