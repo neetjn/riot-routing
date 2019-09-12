@@ -32,6 +32,7 @@
     "beforeEach": true,
     "afterEach": true,
     "expect": true,
-    "Event": true
+    "Event": true,
+    "module": true
   }
 }
