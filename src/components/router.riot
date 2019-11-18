@@ -1,0 +1,22 @@
+<router>
+  <slot if={client.route}
+        is={client.route.source.component.name}
+        data={client.route}></slot>
+
+  <script>
+    import { register } from 'riot'
+    import RouterClient from '../lib/riot.client.js'
+
+    export default {
+      onBeforeMount() {
+        this.client = new RouterClient(this)
+      },
+      onMounted() {
+        this.client.router.start()
+      },
+      onUnmounted() {
+        this.client.router.stop()
+      }
+    }
+  </script>
+</router>

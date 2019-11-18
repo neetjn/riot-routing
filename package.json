@@ -7,9 +7,6 @@
     "lint": "npx eslint ./src/**/**.js",
     "pretty": "npx prettier-eslint --write ./src/**/**.js",
     "test": "npx jest --coverage",
-    "bundle:prod": "npx parcel build src/router.ts --global Router --target browser -o ./dist/router.prod.js",
-    "bundle:dev": "npx parcel build src/router.ts --global Router --target browser -o ./dist/router.dev.js --no-minify",
-    "bundle": "npm run bundle:prod && npm run bundle:dev",
     "build": "npm run lint && npm run bundle && npm test"
   },
   "repository": {
