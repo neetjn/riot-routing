@@ -7,6 +7,8 @@ describe('Router Client', () => {
     window.dispatchEvent(new Event('popstate'))
   }
 
+  const randomNumber = Math.round(Math.random(1, 9999))
+
   const routes = [
     {
       name: 'Home',
@@ -31,9 +33,34 @@ describe('Router Client', () => {
         template: '<number></number>'
       },
       test: (data, transition) => {
-        // TODO: left here
+        if (data.qargs.integer === randomNumber) {
+          transition()
+        } else {
+          transition('not-found')
+        }
       },
       path: '/number/:integer'
     }
   ]
+
+
+  const routerComponent = {
+    opts: {
+      routes,
+      default: '/',
+      fallback: '/not-found'
+    },
+    update() {
+    }
+  }
+
+  const ctx = { }
+
+  beforeEach(() => {
+    ctx.router = new Router(routerComponent)
+  })
+
+  it('Should handle the default route as intended', () => {
+    // TODO: left here, should we add push event listener or just check router pushes?
+  })
 })

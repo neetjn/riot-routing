@@ -1,0 +1,21 @@
+name: Continuous Integration
+on: [pull_request, push]
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout Project
+      uses: actions/checkout@master
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        version: 10.x
+    - name: Build
+      run: |
+        npm ci
+        npm run build
+    - name: Upload Coverage
+      uses: Atrox/codecov-action@v0.1.2
+      env:
+        CODECOV_TOKEN: bc5c47fb-ff5c-4868-8464-f0fb99aaf03b
+
