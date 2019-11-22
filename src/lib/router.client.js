@@ -20,7 +20,7 @@ const RouteState = (route, details) => {
   }
 }
 
-export default class RouterClient {
+class RouterClient {
 
   // public $root: Component
   // public state: Array<RouteState>
@@ -29,17 +29,17 @@ export default class RouterClient {
   constructor (root) {
     this.$root = root
     this.state = []
-    this.routes.push(...root.props.routes.map(route => {
+    this.routes = root.props.routes.map(route => {
       return Object.freeze(
-        Object.assign(route, {
-          path: Array.isArray(route.path) ? route.path : [route.path]
+        Object.assign({}, route, {
+          path: Array.isArray(route.path) ? [...route.path] : [route.path],
         })
       )
-    }))
+    })
     this.router = new Router({
       client: {
-        onNavigate: this.onNavigate,
-        onStart: this.onStart
+        onNavigate: this.onNavigate.bind(this),
+        onStart: this.onStart.bind(this)
       }
     })
   }
@@ -85,4 +85,8 @@ export default class RouterClient {
     }
   }
 
+}
+
+module.exports = {
+  RouterClient
 }

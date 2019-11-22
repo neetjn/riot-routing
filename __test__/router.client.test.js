@@ -1,13 +1,17 @@
 require('@testing-library/jest-dom/extend-expect')
-const Router = require('../dist/router.dev')
+const { RouterClient } = require('../src/lib/router.client.js')
 
 describe('Router Client', () => {
+  const ctx = { }
+
+  const getState = () => ctx.client.state.slice(-1)[0]
+
+  const getLocation = () => window.location.hash.split('#!').slice(-1)[0]
+
   const navigate = route => {
     window.location.hash = `#!${route}`
     window.dispatchEvent(new Event('popstate'))
   }
-
-  const randomNumber = Math.round(Math.random(1, 9999))
 
   const routes = [
     {
@@ -27,13 +31,21 @@ describe('Router Client', () => {
       path: '/not-found'
     },
     {
+      name: 'Word',
+      component: {
+        name: 'word',
+        template: '<word></word>'
+      },
+      path: '/word/:string'
+    },
+    {
       name: 'Number',
       component: {
         name: 'number',
         template: '<number></number>'
       },
       test: (data, transition) => {
-        if (data.qargs.integer === randomNumber) {
+        if (data.qargs.integer === 1337) {
           transition()
         } else {
           transition('not-found')
@@ -43,9 +55,8 @@ describe('Router Client', () => {
     }
   ]
 
-
   const routerComponent = {
-    opts: {
+    props: {
       routes,
       default: '/',
       fallback: '/not-found'
@@ -54,13 +65,82 @@ describe('Router Client', () => {
     }
   }
 
-  const ctx = { }
-
   beforeEach(() => {
-    ctx.router = new Router(routerComponent)
+    ctx.client = new RouterClient(routerComponent)
   })
 
-  it('Should handle the default route as intended', () => {
-    // TODO: left here, should we add push event listener or just check router pushes?
+  afterEach(() => {
+    if (ctx.client.router.running) {
+      ctx.client.router.stop()
+    }
+  })
+
+  it('Should handle the default route as intended', (done) => {
+    ctx.client.router.start()
+    setTimeout(() => {
+      expect(getLocation()).toEqual(routerComponent.props.default)
+      done()
+    }, 500)
+  })
+
+  it ('Should handle fallbacks as intended', (done) => {
+    ctx.client.router.start()
+    navigate('/hello-world')
+    setTimeout(() => {
+      expect(getLocation()).toEqual(routerComponent.props.fallback)
+      done()
+    }, 500)
+  })
+
+  it('Should handle wildcard fallback as intended', (done) => {
+    const mockRoutes = [
+      {
+        name: 'Home',
+        component: {
+          name: 'home',
+          template: '<home></home>'
+        },
+        path: ['/', '/home']
+      },
+      {
+        name: 'Not Found',
+        component: {
+          name: 'not-found',
+          template: '<not-found></not-found>'
+        },
+        path: ['/not-found', '*']
+      }
+    ]
+
+    const mockComponent = {
+      props: {
+        routes: mockRoutes,
+        default: '/'
+      },
+      update() {
+      }
+    }
+
+    ctx.client = new RouterClient(mockComponent)
+    ctx.client.router.start()
+
+    navigate('/hello-world')
+
+    setTimeout(() => {
+      expect(getState().source.name).toBe(mockRoutes[1].name)
+      done()
+    }, 500)
+  })
+
+  it('Should provide arguments and query arguments as expected', (done) => {
+    ctx.client.router.start()
+    navigate('/word/hello-world?foo=bar&bar=foo')
+    setTimeout(() => {
+      const state = getState()
+      expect(state.args.string).toEqual('hello-world')
+      expect(state.qargs.foo).toEqual('bar')
+      expect(state.qargs.bar).toEqual('foo')
+      done()
+    }, 500)
   })
 })

@@ -33,6 +33,7 @@
     "afterEach": true,
     "expect": true,
     "Event": true,
-    "module": true
+    "module": true,
+    "setTimeout": true
   }
 }
