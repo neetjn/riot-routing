@@ -62,3 +62,6 @@ typings/
 
 # vim
 *.swp
+
+# vscode
+.vscode/
