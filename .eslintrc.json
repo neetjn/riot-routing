@@ -34,6 +34,7 @@
     "expect": true,
     "Event": true,
     "module": true,
-    "setTimeout": true
+    "setTimeout": true,
+    "setInterval": true
   }
 }

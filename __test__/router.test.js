@@ -29,6 +29,7 @@ describe('Router Component', () => {
               'type': expressionTypes.ATTRIBUTE,
               'name': 'routes',
               'evaluate': function(scope) {
+                console.log(scope.routes)
                 return scope.routes
               }
             },
@@ -63,13 +64,14 @@ describe('Router Component', () => {
 
   beforeEach(() => {
     document.body.innerHTML = `
-      <root />
+      <div id="app" />
     `
-    ctx.root = riot.component(RootComponent)(document.querySelector('root'))
+    const Root = riot.component(RootComponent)(document.querySelector('#app'))
+    // console.log(Component)
   })
 
   afterEach(() => {
-    ctx.root.unmount()
+    // ctx.root.unmount()
   })
 
   it('', (done) => {
