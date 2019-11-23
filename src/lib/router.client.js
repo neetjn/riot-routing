@@ -1,4 +1,4 @@
-import Router from 'core-routing/dist/router.prod.js'
+const Router = require('core-routing/dist/router.prod.js')
 
 const navigatePath = (path) => {
   window.location.hash = `#!${path}`
