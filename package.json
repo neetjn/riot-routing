@@ -34,7 +34,6 @@
     "@babel/preset-env": "^7.6.0",
     "@riotjs/cli": "^4.0.2",
     "@riotjs/compiler": "^4.3.11",
-    "@riotjs/parcel-plugin-riot": "^4.0.1",
     "@testing-library/jest-dom": "^4.1.0",
     "babel-eslint": "^10.0.3",
     "core-routing": "0.0.2",
@@ -42,8 +41,7 @@
     "prettier": "^1.18.2",
     "prettier-eslint": "^9.0.0",
     "prettier-eslint-cli": "^5.0.0",
-    "riot": "^4.5.0",
-    "riot-jest-transformer": "^6.0.4"
+    "riot": "^4.5.0"
   },
   "jest": {
     "coverageDirectory": "./coverage/",

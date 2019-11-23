@@ -1,21 +1,24 @@
 require('@testing-library/jest-dom/extend-expect')
 const { MockRoutes } = require('./mock')
-const Router = require('../build/router')
-
-import * as riot from 'riot'
-import { template, expressionTypes, bindingTypes, getComponent } from '@riotjs/dom-bindings'
+import { component, register } from 'riot'
+import RouterComponent from '../build/router'
 
 describe('Router Component', () => {
 
   const ctx = { }
 
-  const HomeComponent = riot.component(MockRoutes[0].component)
-  const NotFoundComponent = riot.component(MockRoutes[1].component)
-  const WordComponent = riot.component(MockRoutes[2].component)
+  const HomeComponent = MockRoutes[0].component
+  const NotFoundComponent = MockRoutes[1].component
+  const WordComponent = MockRoutes[2].component
+
+  register(HomeComponent.name, HomeComponent)
+  register(NotFoundComponent.name, NotFoundComponent)
+  register(WordComponent.name, WordComponent)
+  register(RouterComponent.name, RouterComponent)
 
   const RootComponent = {
     name: 'root',
-    template() {
+    template(template, expressionTypes, bindingTypes, getComponent) {
       return template('<router expr0="expr0" default fallback="/"></router>', [
         {
           'type': bindingTypes.TAG,
@@ -29,7 +32,6 @@ describe('Router Component', () => {
               'type': expressionTypes.ATTRIBUTE,
               'name': 'routes',
               'evaluate': function(scope) {
-                console.log(scope.routes)
                 return scope.routes
               }
             },
@@ -54,10 +56,6 @@ describe('Router Component', () => {
       ])
     },
     exports: {
-      HomeComponent,
-      NotFoundComponent,
-      WordComponent,
-      Router,
       routes: [...MockRoutes.slice(0, 3)]
     }
   }
@@ -66,19 +64,18 @@ describe('Router Component', () => {
     document.body.innerHTML = `
       <div id="app" />
     `
-    const Root = riot.component(RootComponent)(document.querySelector('#app'))
-    // console.log(Component)
+    const Root = component(RootComponent)
+    ctx.root = Root(document.querySelector('#app'))
   })
 
   afterEach(() => {
     // ctx.root.unmount()
   })
 
-  it('', (done) => {
+  it('Default route should render', (done) => {
     setTimeout(() => {
-      console.log(document.body.innerHTML)
       done()
-    }, 500)
-    // const Component = riot.component(MockRouterComponent)
+    }, 1500)
+    // const Component = component(MockRouterComponent)
   })
 })
