@@ -1,4 +1,4 @@
-import Router from './components/router'
+import Router from './components/router.riot'
 import LinkTo from './components/link-to.riot'
 
 module.exports = {

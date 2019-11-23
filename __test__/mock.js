@@ -1,4 +1,4 @@
-import { template, expressionTypes } from '@riotjs/dom-bindings'
+const { template, expressionTypes } = require('@riotjs/dom-bindings')
 
 const MockRoutes = [
   {

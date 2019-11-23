@@ -1,6 +1,6 @@
 const Router = require('core-routing/dist/router.prod.js')
 
-const navigatePath = (path) => {
+const navigatePath = path => {
   window.location.hash = `#!${path}`
 }
 
@@ -21,18 +21,17 @@ const RouteState = (route, details) => {
 }
 
 class RouterClient {
-
   // public $root: Component
   // public state: Array<RouteState>
   // public routes: Array<Object>
 
-  constructor (root) {
+  constructor(root) {
     this.$root = root
     this.state = []
     this.routes = root.props.routes.map(route => {
       return Object.freeze(
         Object.assign({}, route, {
-          path: Array.isArray(route.path) ? [...route.path] : [route.path],
+          path: Array.isArray(route.path) ? [...route.path] : [route.path]
         })
       )
     })
@@ -65,7 +64,7 @@ class RouterClient {
             this.route = RouteState(route, details)
           }
         }
-        route.test({args: details.variables, qargs: details.args}, transition)
+        route.test({ args: details.variables, qargs: details.args }, transition)
       } else {
         this.route = RouteState(route, details)
       }
@@ -84,7 +83,6 @@ class RouterClient {
       this.onNavigate(e)
     }
   }
-
 }
 
 module.exports = {

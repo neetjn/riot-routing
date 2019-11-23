@@ -7,7 +7,8 @@
     "lint": "npx eslint ./src/**/**.js",
     "pretty": "npx prettier-eslint --write ./src/**/**.js",
     "test": "npx jest --coverage",
-    "build": "npm run lint && npm run bundle && npm test"
+    "build:component": "./scripts/build.sh",
+    "build": "npm run lint && npm run pretty && npm run build:component && npm test"
   },
   "repository": {
     "type": "git",
@@ -31,17 +32,18 @@
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
+    "@riotjs/cli": "^4.0.2",
     "@riotjs/compiler": "^4.3.11",
     "@riotjs/parcel-plugin-riot": "^4.0.1",
     "@testing-library/jest-dom": "^4.1.0",
     "babel-eslint": "^10.0.3",
     "core-routing": "0.0.2",
     "jest": "^24.9.0",
-    "parcel": "^1.12.4",
     "prettier": "^1.18.2",
     "prettier-eslint": "^9.0.0",
     "prettier-eslint-cli": "^5.0.0",
-    "riot": "^4.5.0"
+    "riot": "^4.5.0",
+    "riot-jest-transformer": "^6.0.4"
   },
   "jest": {
     "coverageDirectory": "./coverage/",

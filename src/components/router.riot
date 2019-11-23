@@ -4,8 +4,7 @@
         data={client.route}></slot>
 
   <script>
-    import { register } from 'riot'
-    import RouterClient from '../lib/riot.client.js'
+    const { RouterClient } = require('../lib/router.client.js')
 
     export default {
       onBeforeMount() {
