@@ -34,7 +34,7 @@ const MockRoutes = [
     component: {
       name: 'word',
       template() {
-        return template('<h1 expr0="expr0"> </h1>', [{
+        return template('<word><h1 expr0="expr0"> </h1></word>', [{
           'redundantAttribute': 'expr0',
           'selector': '[expr0]',
           'expressions': [{

@@ -24,7 +24,7 @@ describe('Router Client', () => {
     }
   })
 
-  it('Should handle the default route as intended', (done) => {
+  it('Should handle the default route as intended', done => {
     ctx.client.router.start()
     setTimeout(() => {
       expect(getLocation())
@@ -33,7 +33,7 @@ describe('Router Client', () => {
     }, 500)
   })
 
-  it ('Should handle fallbacks as intended', (done) => {
+  it ('Should handle fallbacks as intended', done => {
     ctx.client.router.start()
     navigate('/hello-world')
     setTimeout(() => {
@@ -43,7 +43,7 @@ describe('Router Client', () => {
     }, 500)
   })
 
-  it('Should handle wildcard fallback as intended', (done) => {
+  it('Should handle wildcard fallback as intended', done => {
     ctx.client = new RouterClient(MockRouterFallbackComponent)
     ctx.client.router.start()
     navigate('/hello-world')
@@ -54,7 +54,7 @@ describe('Router Client', () => {
     }, 500)
   })
 
-  it('Should provide arguments and query arguments as expected', (done) => {
+  it('Should provide arguments and query arguments as expected', done => {
     ctx.client.router.start()
     navigate('/word/hello-world?foo=bar&bar=foo')
     setTimeout(() => {
@@ -69,7 +69,7 @@ describe('Router Client', () => {
     }, 500)
   })
 
-  it ('Should properly handle route tests', (done) => {
+  it ('Should properly handle route tests', done => {
     ctx.client.router.start()
     navigate('/number/5')
     setTimeout(() => {
