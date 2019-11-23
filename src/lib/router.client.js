@@ -20,40 +20,24 @@ const RouteState = (route, details) => {
   }
 }
 
-class RouterClient {
-  // public $root: Component
-  // public state: Array<RouteState>
-  // public routes: Array<Object>
+const RouterClient = rootComponent => {
+  const stateHistory = []
 
-  constructor(root) {
-    this.$root = root
-    this.state = []
-    this.routes = root.props.routes.map(route => {
-      return Object.freeze(
-        Object.assign({}, route, {
-          path: Array.isArray(route.path) ? [...route.path] : [route.path]
-        })
-      )
-    })
-    this.router = new Router({
-      client: {
-        onNavigate: this.onNavigate.bind(this),
-        onStart: this.onStart.bind(this)
-      }
-    })
+  const routes = rootComponent.props.routes.map(route => {
+    return Object.freeze(
+      Object.assign({}, route, {
+        path: Array.isArray(route.path) ? [...route.path] : [route.path]
+      })
+    )
+  })
+
+  const pushState = routeState => {
+    stateHistory.push(routeState)
+    rootComponent.update()
   }
 
-  get route() {
-    return this.state.length ? this.state.slice(-1)[0] : null
-  }
-
-  set route(routeState) {
-    this.state.push(routeState)
-    this.$root.update()
-  }
-
-  onNavigate(e) {
-    const route = matchRoute(e, this.routes)
+  const onNavigate = e => {
+    const route = matchRoute(e, routes)
     if (route) {
       const details = e.$tools.process(e.location.path, route.path[0])
       if (route.test) {
@@ -61,27 +45,42 @@ class RouterClient {
           if (path) {
             navigatePath(route)
           } else {
-            this.route = RouteState(route, details)
+            pushState(RouteState(route, details))
           }
         }
         route.test({ args: details.variables, qargs: details.args }, transition)
       } else {
-        this.route = RouteState(route, details)
+        pushState(RouteState(route, details))
       }
     } else {
-      this.state.push(null)
-      if (this.$root.props.fallback) {
-        navigatePath(this.$root.props.fallback)
+      stateHistory.push(null)
+      if (rootComponent.props.fallback) {
+        navigatePath(rootComponent.props.fallback)
       }
     }
   }
 
-  onStart(e) {
-    if (this.$root.props.default && !e.location.hash) {
-      navigatePath(this.$root.props.default)
+  const onStart = e => {
+    if (rootComponent.props.default && !e.location.hash) {
+      navigatePath(rootComponent.props.default)
     } else {
-      this.onNavigate(e)
+      onNavigate(e)
     }
+  }
+
+  const router = new Router({
+    client: {
+      onNavigate: onNavigate,
+      onStart: onStart
+    }
+  })
+
+  return {
+    router,
+    get state() {
+      return stateHistory.length ? stateHistory.slice(-1)[0] : null
+    },
+    stateHistory
   }
 }
 

@@ -5,8 +5,6 @@ const { MockRouterComponent, MockRouterFallbackComponent } = require('./mock')
 describe('Router Client', () => {
   const ctx = { }
 
-  const getState = () => ctx.client.state.slice(-1)[0]
-
   const getLocation = () => window.location.hash.split('#!').slice(-1)[0]
 
   const navigate = route => {
@@ -15,7 +13,7 @@ describe('Router Client', () => {
   }
 
   beforeEach(() => {
-    ctx.client = new RouterClient(MockRouterComponent)
+    ctx.client = RouterClient(MockRouterComponent)
   })
 
   afterEach(() => {
@@ -44,11 +42,11 @@ describe('Router Client', () => {
   })
 
   it('Should handle wildcard fallback as intended', done => {
-    ctx.client = new RouterClient(MockRouterFallbackComponent)
+    ctx.client = RouterClient(MockRouterFallbackComponent)
     ctx.client.router.start()
     navigate('/hello-world')
     setTimeout(() => {
-      expect(getState().source.name)
+      expect(ctx.client.state.source.name)
         .toBe(MockRouterFallbackComponent.props.routes[1].name)
       done()
     }, 500)
@@ -58,7 +56,7 @@ describe('Router Client', () => {
     ctx.client.router.start()
     navigate('/word/hello-world?foo=bar&bar=foo')
     setTimeout(() => {
-      const state = getState()
+      const state = ctx.client.state
       expect(state.args.string)
         .toEqual('hello-world')
       expect(state.qargs.foo)

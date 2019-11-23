@@ -1,14 +1,14 @@
 <router>
-  <slot if={client.route}
-        is={client.route.source.component.name}
-        data={client.route}></slot>
+  <slot if={client.state}
+        is={client.state.source.component.name}
+        data={client.state}></slot>
 
   <script>
     const { RouterClient } = require('../lib/router.client.js')
 
     export default {
       onBeforeMount() {
-        this.client = new RouterClient(this)
+        this.client = RouterClient(this)
       },
       onMounted() {
         this.client.router.start()

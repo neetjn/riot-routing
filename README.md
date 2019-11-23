@@ -53,6 +53,8 @@ export default {
 
 When referencing from a browser, a global definition `Router` will be exposed:
 
+TBD
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/riot-routing/dist/riot-routing.browser.js"></script>
 <script>
@@ -70,7 +72,45 @@ When referencing from a browser, a global definition `Router` will be exposed:
           fallback="/not-found"
           routes={routes}/>
   <script>
-    ...
+    import { Router, LinkTo } from 'riot-routing'
+
+    import Home from './components/home.riot'
+    import NotFound from './components/not-found.riot'
+    import UserProfile from './components/user-profile.riot'
+
+    const routes = [
+      {
+        name: 'Home',
+        component: Home,
+        path: ['/', '/home']
+      },
+      {
+        name: 'NotFound',
+        component: NotFound,
+        path: '/not-found'
+      },
+      {
+        name: 'User Profile',
+        component: UserProfile,
+        path: '/user/:userId',
+        test(data, transition) {
+          if (data.args.userId) {
+            ...
+          } else {
+            transition('/not-found')
+          }
+        }
+      }
+    ]
+
+    export default {
+      components: {
+        Home,
+        NotFound,
+        UserProfile
+      },
+      routes
+    }
   </script>
 </root>
 ```
