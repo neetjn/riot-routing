@@ -52,9 +52,9 @@ describe('Router Client', () => {
     }, 500)
   })
 
-  it('Should provide arguments and query arguments as expected', done => {
+  it('Should provide arguments, query arguments, and fragments as expected', done => {
     ctx.client.router.start()
-    navigate('/word/hello-world?foo=bar&bar=foo')
+    navigate('/word/hello-world?foo=bar&bar=foo#bottom')
     setTimeout(() => {
       const state = ctx.client.state
       expect(state.args.string)
@@ -63,6 +63,8 @@ describe('Router Client', () => {
         .toEqual('bar')
       expect(state.qargs.bar)
         .toEqual('foo')
+      expect(state.fragment)
+        .toEqual('bottom')
       done()
     }, 500)
   })

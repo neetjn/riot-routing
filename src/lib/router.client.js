@@ -15,6 +15,7 @@ const matchRoute = (e, routes) => {
 const RouteState = (route, details) => {
   return {
     source: route,
+    fragment: details.result.fragment,
     args: details.variables,
     qargs: details.args
   }
