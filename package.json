@@ -8,7 +8,8 @@
     "pretty": "npx prettier-eslint --write ./src/**/**.js",
     "test": "npx jest --coverage",
     "build:component": "./scripts/build.sh",
-    "build": "npm run lint && npm run pretty && npm run build:component && npm test"
+    "build:browser": "npx webpack --config webpack.config.js",
+    "build": "npm run lint && npm run pretty && npm run build:component && npm run build:browser && npm test"
   },
   "repository": {
     "type": "git",
