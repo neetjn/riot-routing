@@ -4,7 +4,11 @@ module.exports = {
   },
   output: {
     filename: 'browser.bundle.js',
-    publicPath: './'
+    publicPath: './',
+    libraryTarget: 'umd',
+    library: 'RiotRouting',
+    umdNamedDefine: true
+
   },
   watch: false,
   mode: 'production',
