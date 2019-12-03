@@ -8,7 +8,6 @@ module.exports = {
     libraryTarget: 'umd',
     library: 'RiotRouting',
     umdNamedDefine: true
-
   },
   watch: false,
   mode: 'production',

@@ -80,18 +80,15 @@ TBD
 
     const routes = [
       {
-        name: 'Home',
-        component: Home,
+        component: Home.name,
         path: ['/', '/home']
       },
       {
-        name: 'NotFound',
-        component: NotFound,
+        component: NotFound.name,
         path: '/not-found'
       },
       {
-        name: 'User Profile',
-        component: UserProfile,
+        componentName: 'user-profile',
         path: '/user/:userId',
         test(data, transition) {
           if (data.args.userId) {

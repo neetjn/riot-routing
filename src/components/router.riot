@@ -1,6 +1,8 @@
 <router>
   <slot if={client.state}
-        is={client.state.source.component.name}
+        is={client.state.source.component ?
+            client.state.source.component.name :
+            client.state.source.componentName}
         data={client.state}></slot>
 
   <script>
