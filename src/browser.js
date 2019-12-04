@@ -1,10 +1,10 @@
-const Router = require('./components/router.riot')
-const LinkTo = require('./components/router.riot')
+const Router = require('./components/router.riot').default
+const LinkTo = require('./components/link-to.riot').default
 
 const RiotRouting = {
-  install: register => {
-    register('router', Router)
-    register('link-to', LinkTo)
+  components: {
+    Router,
+    LinkTo
   }
 }
 

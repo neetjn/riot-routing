@@ -3,7 +3,7 @@ module.exports = {
     main: './src/browser.js'
   },
   output: {
-    filename: 'browser.bundle.js',
+    filename: 'riot-routing.browser.js',
     publicPath: './',
     libraryTarget: 'umd',
     library: 'RiotRouting',
@@ -30,10 +30,6 @@ module.exports = {
         use: [
           {
             loader: '@riotjs/webpack-loader',
-            options: {
-              hot: false,
-              scopedCss: true
-            },
           },
         ]
       }
