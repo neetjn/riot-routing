@@ -19,9 +19,11 @@ Lightweight Riot.js client sided router built on top of the [core-routing](https
 |--------|------|---------|----------|--------|
 | 5.0+ ✔ |  ✔   | 4.0+ ✔  | 11.50+ ✔ | 5.0+ ✔ |
 
+**riot-routing** only supports Riot.js 4.x, for Riot.js 3.x see [riot-view-router](https://github.com/neetjn/riot-view-router).
+
 ### About
 
-This project was created in wake of a redesign of the [riot-view-router](https://github.com/neetjn/riot-view-router) project. 
+This project was created in wake of a redesign of the **riot-view-router** project. **riot-routing** consists of two simple exported components leveraging **core-routing** in a lightweight client.
 
 ## Install
 
