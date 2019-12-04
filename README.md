@@ -57,63 +57,9 @@ When referencing from a browser, a global definition `RiotRouting` will be expos
 <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/4.6.2/riot+compiler.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/riot-routing/dist/riot-routing.browser.js"></script>
 
-...
-
-<root />
-
-<template id="home">
-  <home>
-    <h1>Home</h1>
-  </home>
-</template>
-
-<template id="not-found">
-  <not-found>
-    <h1>Not Found</h1>
-  </not-found>
-</template>
-
-<template id="root">
-  <root>
-    <h1>Root</h1>
-    <router default="/"
-            fallback="/not-found" 
-            routes={routes} />
-    <script>
-      export default {
-        routes: [
-          {
-            componentName: 'home',
-            path: ['/', '/home']
-          },
-          {
-            componentName: 'not-found',
-            path: '/not-found'
-          }
-        ]
-      }
-    </script>
-  </root>
-</template>
-
 <script>
-  const compile = (name, selector) => {
-    const tagString = document.querySelector(selector).innerHTML
-    const {code} = riot.compileFromString(tagString)
-    riot.inject(code, name, '_')
-  }
-
-  compile('home', '#home')
-  compile('not-found', '#not-found')
-  compile('root', '#root')
-
   const Router = RiotRouting.components.Router
-  const LinkTo = RiotRouting.components.LinkTo
-
   riot.register(Router.name, Router)
-  riot.register(LinkTo.name, LinkTo)
-
-  riot.mount('root')
 </script>
 ```
 
@@ -165,6 +111,21 @@ When referencing from a browser, a global definition `RiotRouting` will be expos
     }
   </script>
 </root>
+```
+
+Routes are defined in the form:
+
+```ts
+interface Route = {
+  component?: {
+    css: string,
+    name: string,
+    template: ...,
+    exports: any
+  },
+  componentName?: string,
+  path: string | Array<string>
+}
 ```
 
 ## Development
