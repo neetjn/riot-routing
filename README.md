@@ -126,7 +126,8 @@ interface Route = {
     exports: any
   },
   componentName?: string,
-  path: string | Array<string>
+  path: string | Array<string>,
+  test (data: ..., transition: fn(route?: string)): void
 }
 ```
 
