@@ -138,6 +138,7 @@ Refer to the following npm commands to simplify your development workflow:
 * **lint** - Lint core project and tests.
 * **pretty** - Use prettier to clean/format core project.
 * **test** - Run test suite.
+* **build:browser** - Compile bundle for browser.
 * **build:component** - Compile router component for testing.
 * **build** - Lint, compile, and test the project.
 
