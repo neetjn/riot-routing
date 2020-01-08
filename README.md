@@ -83,11 +83,11 @@ When referencing from a browser, a global definition `RiotRouting` will be expos
 
     const routes = [
       {
-        component: Home.name,
+        component: Home,
         path: ['/', '/home']
       },
       {
-        component: NotFound.name,
+        component: NotFound,
         path: '/not-found'
       },
       {
