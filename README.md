@@ -38,7 +38,7 @@ For a quick start using jsdelivr:
 
 ### Use
 
-The router at it's core is quite simple to use. The project exposes two Riot.js components that can be imported like so:
+The router at it's core is quite simple to use. The project exposes two Riot.js components and an `install` function that can be imported like so:
 
 ```js
 import { Router, LinkTo } from 'riot-routing'
@@ -53,6 +53,22 @@ export default {
 }
 ```
 
+or
+
+```js
+import { register } from 'riot'
+import { install } from 'riot-routing'
+
+// will expose the `Router` and `LinkTo` components globally
+install(register)
+```
+
+The module also supports es2015:
+
+```js
+const { install } = require('riot-routing')
+```
+
 When referencing from a browser, a global definition `RiotRouting` will be exposed:
 
 ```html
@@ -60,18 +76,18 @@ When referencing from a browser, a global definition `RiotRouting` will be expos
 <script src="https://cdn.jsdelivr.net/npm/riot-routing/dist/riot-routing.browser.js"></script>
 
 <script>
-  const Router = RiotRouting.components.Router
-  riot.register(Router.name, Router)
+  const { install } = RiotRouting
+  install(riot.register)
 </script>
 ```
 
 ### Example
 
-> The router component takes three props (`default` and `fallback` are optional):
+> The router component takes three props (`default-path` and `fallback` are optional):
 
 ```html
 <root>
-  <router default="/"
+  <router default-path="/"
           fallback="/not-found"
           routes={routes}/>
   <script>
@@ -105,6 +121,7 @@ When referencing from a browser, a global definition `RiotRouting` will be expos
 
     export default {
       components: {
+        Router,
         Home,
         NotFound,
         UserProfile
@@ -138,8 +155,8 @@ Refer to the following npm commands to simplify your development workflow:
 * **lint** - Lint core project and tests.
 * **pretty** - Use prettier to clean/format core project.
 * **test** - Run test suite.
-* **build:browser** - Compile bundle for browser.
-* **build:component** - Compile router component for testing.
+* **build:web** - Compile bundle for browser.
+* **build:prod** - Compile bundle for production.
 * **build** - Lint, compile, and test the project.
 
 ## Contributors
@@ -156,4 +173,4 @@ Contributing guidelines are as follows,
 
 ---
 
-Copyright (c) 2019 John Nolette Licensed under the MIT license.
+Copyright (c) 2020 John Nolette Licensed under the MIT license.

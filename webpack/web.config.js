@@ -1,10 +1,10 @@
 module.exports = {
   entry: {
-    main: './src/browser.js'
+    main: './src/index.js'
   },
   output: {
-    filename: 'riot-routing.browser.js',
-    publicPath: './',
+    filename: 'riot-routing.web.js',
+    publicPath: '../',
     libraryTarget: 'umd',
     library: 'RiotRouting',
     umdNamedDefine: true

@@ -1,15 +1,16 @@
 {
   "name": "riot-routing",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Lightweight, declarative client sided router for Riot.js.",
-  "main": "index.js",
+  "main": "dist/riot-routing.js",
   "scripts": {
     "lint": "npx eslint ./src/**/**.js",
     "pretty": "npx prettier-eslint --write ./src/**/**.js",
     "test": "npx jest --coverage",
-    "build:component": "./scripts/build.sh",
-    "build:browser": "npx webpack --config webpack.config.js",
-    "build": "npm run lint && npm run pretty && npm run build:component && npm run build:browser && npm test"
+    "jest:resolve": "sed -i -e 's/parcelRequire=func/var parcelRequire=func/g' ./dist/riot-routing.js",
+    "build:web": "npx webpack --config webpack/web.config.js",
+    "build:prod": "npx webpack --config webpack/prod.config.js",
+    "build": "npm run lint && npm run pretty && npm run build:web && npm run build:prod && npm run jest:resolve && npm test"
   },
   "repository": {
     "type": "git",
@@ -34,21 +35,21 @@
     "core-routing": "0.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@riotjs/cli": "^4.0.2",
-    "@riotjs/compiler": "^4.5.2",
-    "@riotjs/webpack-loader": "^4.0.1",
-    "@testing-library/jest-dom": "^4.1.0",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@riotjs/cli": "^4.0.3",
+    "@riotjs/compiler": "^4.8.2",
+    "@riotjs/webpack-loader": "^4.0.3",
+    "@testing-library/jest-dom": "^4.2.4",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "prettier-eslint": "^9.0.0",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.1",
     "prettier-eslint-cli": "^5.0.0",
-    "riot": "^4.5.0",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "riot": "^4.11.1",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
   },
   "jest": {
     "coverageDirectory": "./coverage/",

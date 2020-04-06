@@ -73,7 +73,7 @@ const MockRoutes = [
 const MockRouterComponent = {
   props: {
     routes: MockRoutes,
-    default: '/',
+    defaultPath: '/',
     fallback: '/not-found'
   },
   update() {
@@ -102,16 +102,17 @@ const MockFallbackRoutes = [
 const MockRouterFallbackComponent = {
   props: {
     routes: MockFallbackRoutes,
-    default: '/'
+    defaultPath: '/'
   },
   update() {
   }
 }
 
+// built using riot-cli
 const MockRootComponent = {
   name: 'root',
   template(template, expressionTypes, bindingTypes, getComponent) {
-    return template('<router expr0="expr0" default fallback="/"></router>', [
+    return template('<router expr0="expr0" defaultPath fallback="/"></router>', [
       {
         'type': bindingTypes.TAG,
         'getComponent': getComponent,
@@ -129,7 +130,7 @@ const MockRootComponent = {
           },
           {
             'type': expressionTypes.ATTRIBUTE,
-            'name': 'default',
+            'name': 'defaultPath',
             'evaluate': function() {
               return '/'
             }

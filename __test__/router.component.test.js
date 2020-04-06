@@ -1,7 +1,7 @@
 require('@testing-library/jest-dom/extend-expect')
-const { MockRootComponent, MockRoutes } = require('./mock')
 import { component, register } from 'riot'
-import RouterComponent from '../build/router'
+import { install } from '../dist/riot-routing'
+const { MockRootComponent, MockRoutes } = require('./mock')
 
 describe('Router Component', () => {
 
@@ -14,6 +14,8 @@ describe('Router Component', () => {
 
   const ctx = { }
 
+  install(register)
+
   const HomeComponent = MockRoutes[0].component
   const NotFoundComponent = MockRoutes[1].component
   const WordComponent = MockRoutes[2].component
@@ -21,7 +23,6 @@ describe('Router Component', () => {
   register(HomeComponent.name, HomeComponent)
   register(NotFoundComponent.name, NotFoundComponent)
   register(WordComponent.name, WordComponent)
-  register(RouterComponent.name, RouterComponent)
 
   beforeEach(() => {
     document.body.innerHTML = `
@@ -37,6 +38,7 @@ describe('Router Component', () => {
 
   it('Default route should render', done => {
     setTimeout(() => {
+      console.log(document.body.innerHTML)
       const h1 = document.querySelector('router > slot > home > h1')
       expect(h1)
         .not.toBeNull()
