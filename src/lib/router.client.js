@@ -1,4 +1,4 @@
-const Router = require('core-routing/dist/router.prod.js')
+const Router = require('core-routing')
 
 const navigatePath = path => {
   window.location.hash = `#!${path}`
@@ -62,8 +62,8 @@ const RouterClient = rootComponent => {
   }
 
   const onStart = e => {
-    if (rootComponent.props.default && !e.location.hash) {
-      navigatePath(rootComponent.props.default)
+    if (rootComponent.props.defaultPath && !e.location.hash) {
+      navigatePath(rootComponent.props.defaultPath)
     } else {
       onNavigate(e)
     }

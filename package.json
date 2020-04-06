@@ -2,14 +2,15 @@
   "name": "riot-routing",
   "version": "0.0.1",
   "description": "Lightweight, declarative client sided router for Riot.js.",
-  "main": "index.js",
+  "main": "dist/riot-routing.js",
   "scripts": {
     "lint": "npx eslint ./src/**/**.js",
     "pretty": "npx prettier-eslint --write ./src/**/**.js",
     "test": "npx jest --coverage",
-    "build:component": "./scripts/build.sh",
-    "build:browser": "npx webpack --config webpack.config.js",
-    "build": "npm run lint && npm run pretty && npm run build:component && npm run build:browser && npm test"
+    "jest:resolve": "sed -i -e 's/parcelRequire=func/var parcelRequire=func/g' ./dist/riot-routing.js",
+    "build:web": "npx webpack --config webpack/web.config.js",
+    "build:prod": "npx webpack --config webpack/prod.config.js",
+    "build": "npm run lint && npm run pretty && npm run build:web && npm run build:prod && npm run jest:resolve && npm test"
   },
   "repository": {
     "type": "git",
