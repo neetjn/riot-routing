@@ -173,4 +173,4 @@ Contributing guidelines are as follows,
 
 ---
 
-Copyright (c) 2019 John Nolette Licensed under the MIT license.
+Copyright (c) 2020 John Nolette Licensed under the MIT license.
