@@ -26,7 +26,7 @@ describe('Router Client', () => {
     ctx.client.router.start()
     setTimeout(() => {
       expect(getLocation())
-        .toEqual(MockRouterComponent.props.default)
+        .toEqual(MockRouterComponent.props.defaultPath)
       done()
     }, 500)
   })
